@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Global Supply Chain Risk 2026
 
 ## Problem statement
@@ -33,3 +34,7 @@ streamlit run app.py
 ```
 
 The dashboard expects the CSV at `archive/global_supply_chain_risk_2026.csv` relative to `app.py`.
+=======
+# logistics_data_analysis
+An interactive logistics risk analytics dashboard that analyzes global supply chain disruptions, predicts shipment risk using Random Forest, and prioritizes high-risk shipments with actionable mitigation strategies.
+>>>>>>> 749283a1342af6b53af783de76bef1dbeddbb5e1

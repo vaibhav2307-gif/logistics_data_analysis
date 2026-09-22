@@ -1,0 +1,171 @@
+Global Supply Chain Risk Project Report
+=====================================
+
+Project Name: Global Supply Chain Risk 2026
+Date: 2026-09-22
+Prepared for: Logistics and Operations Review
+
+1. Executive Summary
+--------------------
+This project focuses on identifying shipments with elevated disruption risk in a global supply chain environment. The objective is to support operational teams in prioritizing limited review capacity, alternate routing, and contingency planning based on high-probability risk signals.
+
+The system combines data cleaning, exploratory analytics, predictive modeling, and decision-support logic to convert raw shipment data into a practical disruption-risk dashboard. It helps stakeholders answer three key questions:
+- Which shipments are likely to experience disruption?
+- What operational signals are associated with higher risk?
+- Which interventions should be prioritized first?
+
+2. Business Problem
+--------------------
+Logistics teams deal with limited time, review resources, and contingency capacity. Without a structured prioritization process, high-risk shipments can be overlooked while lower-risk shipments consume unnecessary review attention.
+
+This project addresses that challenge by creating a data-driven prioritization mechanism using historical shipment attributes and operational indicators. The goal is not to guarantee causality, but to identify patterns that support better planning and risk mitigation decisions.
+
+3. Project Objectives
+---------------------
+- Clean and validate shipment-level logistics data
+- Analyze disruption patterns by route, mode, lead time, and risk factors
+- Build a predictive model to estimate shipment disruption probability
+- Rank high-risk shipments for operational intervention
+- Provide actionable mitigation recommendations for logistics managers
+
+4. Data Source and Scope
+------------------------
+Source File:
+- archive/global_supply_chain_risk_2026.csv
+
+The dataset contains shipment records with fields including:
+- Shipment_ID
+- Date
+- Origin_Port
+- Destination_Port
+- Transport_Mode
+- Product_Category
+- Distance_km
+- Weight_MT
+- Fuel_Price_Index
+- Geopolitical_Risk_Score
+- Weather_Condition
+- Carrier_Reliability_Score
+- Lead_Time_Days
+- Disruption_Occurred
+
+5. Methodology
+---------------
+The project uses a four-stage workflow:
+
+5.1 Data Hygiene and Architecture
+- Load dataset from CSV
+- Validate required columns
+- Remove duplicate shipments
+- Parse and clean date values
+- Convert numeric fields appropriately
+- Flag invalid business values
+- Impute missing numeric values using median-based logic
+- Fill missing categorical values with 'Unknown'
+- Preserve one row per unique Shipment_ID
+
+5.2 Descriptive and Diagnostic Analytics
+- Monthly disruption trend analysis
+- Transport mode distribution review
+- Lead-time outcome distributions
+- Origin-destination shipment cohort analysis
+- Carrier reliability and quality assessment
+
+5.3 Predictive Analytics
+- Target variable: Disruption_Occurred
+- Train-test split: stratified 80/20
+- Feature engineering with preprocessing pipeline
+- Categorical feature encoding using OneHotEncoder
+- Random Forest Classifier model
+- Performance assessment using accuracy, precision, recall, ROC-AUC, confusion matrix, and classification report
+
+5.4 Prescriptive Analytics
+- Estimate disruption probability for every shipment
+- Rank shipments by predicted risk
+- Limit intervention queue based on configurable threshold/percentage
+- Recommend operational responses such as alternate routing, customs coordination, and contingency planning
+
+6. Model Design
+----------------
+The predictive model is implemented in the main Python workflow and uses a pipeline structure with:
+- ColumnTransformer for feature preprocessing
+- OneHotEncoder for categorical variables
+- RandomForestClassifier for disruption prediction
+
+Core model configuration:
+- Random Forest estimators: 350
+- Min samples per leaf: 3
+- Class weighting: balanced
+- Random state: 42
+- Parallel processing enabled
+
+The model is trained to predict whether a shipment will experience disruption based on operational and route-related features.
+
+7. Evaluation Metrics
+----------------------
+The model produces the following metrics during execution:
+- Accuracy
+- Precision
+- Recall
+- ROC-AUC
+- Confusion Matrix
+- Classification Report
+
+These metrics are computed from the test dataset and used to evaluate model quality in a real-world operational setting.
+
+8. Key Insights Expected from the Analysis
+-----------------------------------------
+The dashboard is designed to reveal operational patterns such as:
+- High-risk lanes and port combinations
+- Seasonal or monthly disruption spikes
+- Transportation modes with increased disruption probability
+- Long lead times associated with failure risk
+- Carrier reliability issues affecting shipment stability
+- Geopolitical and weather-sensitive route exposures
+
+These insights support better planning and risk control without implying strict causation.
+
+9. Recommended Actions
+----------------------
+Based on the risk model and project design, operational teams should prioritize:
+- Review highest-risk shipments first
+- Reserve contingency capacity for top-ranked shipments
+- Pre-book alternate routes for high geopolitical exposure
+- Require recovery plans for low-reliability carriers
+- Add milestone alerts for long lead-time shipments
+- Adjust weather-exposed transportation plans and staging windows
+
+10. Risks and Limitations
+-------------------------
+- Predictive outputs are probabilistic, not guaranteed outcomes
+- False negatives may lead to missed disruption prevention
+- False positives may consume scarce review resources
+- Model performance depends on data quality and future operational changes
+- Risk signals should be validated by domain experts before policy enforcement
+
+11. Project Status
+------------------
+The project is implemented as a data analysis and dashboard application for logistics risk intelligence. The workflow includes data preparation, statistical exploration, machine learning, and decision-support visualization.
+
+Project components include:
+- Python analytics workflow
+- Dashboard interface
+- Data cleaning and modeling logic
+- Risk ranking and strategy recommendations
+
+12. Execution Instructions
+-------------------------
+To run the project locally:
+
+1. Install dependencies:
+   python -m pip install -r requirements.txt
+
+2. Start the dashboard:
+   streamlit run app.py
+
+3. Ensure the dataset exists at:
+   archive/global_supply_chain_risk_2026.csv
+
+13. Conclusion
+--------------
+This project demonstrates a practical analytics approach for identifying and prioritizing supply chain disruption risk. By combining data quality controls, exploratory analysis, and predictive modeling, it provides a structured basis for operational decision-making in logistics planning and resilience management.
